@@ -1,19 +1,27 @@
 <template>
   <div id="app">
-    <Registration></Registration>
+    <Navbar></Navbar>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
-
 <script>
-import Registration from './components/common/Registration';
+import Navbar from '@/components/Navbar'
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    Registration  
+    Navbar
   }
 }
 </script>
 
 <style>
+* {
+  font-family: 'Poppins', sans-serif,
+}
 
+body{
+  background-color: #676768;
+}
 </style>

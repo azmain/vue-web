@@ -1,15 +1,12 @@
 <template>
   <div class="registration">
-    <b-container>
-      <b-row align-h="center" class="registration-form">
-        <b-col align-self="center" cols="6">
-          <div class="text-center">
-            <h3>Register Yourself</h3>
-          </div>
-          <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <div class="row my-5">
+      <div class="col-md-6 offset-md-3">
+        <b-card>
+          <h3 class="text-center my-3 pb-2">Register Yourself</h3>
+          <b-form>
             <b-form-group
               id="email"
-              label="Email address:"
               label-for="email"
               description="We'll never share your email with anyone else."
             >
@@ -22,7 +19,7 @@
                 autocomplete="false"
               ></b-form-input>
             </b-form-group>
-            <b-form-group id="username" label="Your Name:" label-for="name">
+            <b-form-group id="username" label-for="name">
               <b-form-input
                 id="name"
                 type="text"
@@ -32,7 +29,7 @@
                 autocomplete="false"
               ></b-form-input>
             </b-form-group>
-            <b-form-group id="password" label="Your Password:" label-for="password">
+            <b-form-group id="password" label-for="password">
               <b-form-input
                 id="password"
                 type="password"
@@ -41,7 +38,7 @@
                 placeholder="Enter password"
               ></b-form-input>
             </b-form-group>
-            <b-form-group id="cpassword" label="Confirm Password:" label-for="cpassword">
+            <b-form-group id="cpassword" label-for="cpassword">
               <b-form-input
                 id="cpassword"
                 type="password"
@@ -51,18 +48,23 @@
               ></b-form-input>
             </b-form-group>
             <div class="text-center">
-              <b-button :size="size" :variant="signup" style="margin-bottom:5px;">
+              <b-button 
+                variant="success" 
+                class="form-control"
+                @click="onSubmit()"
+              >
                 SIGN UP
               </b-button>
             </div>
           </b-form>
-        </b-col>
-      </b-row>
-    </b-container>
+        </b-card>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
   name: "Registration",
   data() {
@@ -72,16 +74,20 @@ export default {
         name: "",
         password: "",
         cpassword: "",
-      },
-      show: true,
-        size: "sm",
-        signup: "success",
+      }
     };
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
+    onSubmit() {
+      console.log(event);
+      console.log(JSON.stringify(this.form));
+      Axios.post("http://192.168.43.92:8888/user/registration",this.form)
+      .then( response => {
+        console.log(response);
+      })
+      .catch( error => {
+        console.log(error);
+      });
     },
     onReset(evt) {
       evt.preventDefault();
@@ -100,12 +106,5 @@ export default {
 };
 </script>
 <style scoped>
-.registration {
-  background-color: #171c23;
-  height: 100vh;
-}
-.registration-form {
-  background-color: #859ec1;
-  border-radius: 3px;
-}
+
 </style>
