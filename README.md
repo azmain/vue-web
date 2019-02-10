@@ -7,6 +7,10 @@ This is my front-end project which I will connect with my spring boot api to dev
     * This will open cli gui in the browser. Create project from there.
     * Install necessary plugins.
     * Go to task & run the project.
+    * Installed Router for routing different pages
+    * Installed Axios for http requests
+    * Created login & registration components
+    * Successfully registered a user
 
 
     

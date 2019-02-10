@@ -23,7 +23,7 @@
               <b-form-input
                 id="name"
                 type="text"
-                v-model="form.name"
+                v-model="form.username"
                 required
                 placeholder="Enter name"
                 autocomplete="false"
@@ -71,7 +71,7 @@ export default {
     return {
       form: {
         email: "",
-        name: "",
+        username: "",
         password: "",
         cpassword: "",
       }
@@ -79,28 +79,28 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(event);
-      console.log(JSON.stringify(this.form));
-      Axios.post("http://192.168.43.92:8888/user/registration",this.form)
-      .then( response => {
-        console.log(response);
-      })
-      .catch( error => {
-        console.log(error);
-      });
-    },
-    onReset(evt) {
-      evt.preventDefault();
-      /* Reset our form values */
-      this.form.email = "";
-      this.form.name = "";
-      this.form.food = null;
-      this.form.checked = [];
-      /* Trick to reset/clear native browser form validation state */
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
+      if(this.form.password && this.form.username && this.form.email){
+        if (this.form.password !== this.form.cpassword) {
+          alert("Your password doesn't match!");
+        }
+        else{
+          Axios.post("http://localhost:8888/user/registration",{
+            userBean : this.form
+          })
+          .then( response => {
+            console.log(response);
+            alert(response.msg);
+          })
+          .catch( ({ response }) => {
+            console.log(response);
+          });
+        }
+      }
+      else{
+        alert("Please fill the form.");
+      }
+      
+      
     }
   }
 };
