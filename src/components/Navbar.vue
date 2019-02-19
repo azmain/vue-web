@@ -7,15 +7,22 @@
           <img src="../assets/logo.png" alt="Logo" width="30px" height="30px">
       </b-navbar-brand>
 
-      <b-collapse is-nav id="nav_collapse">
-        
+      <b-navbar-nav class="ml-auto" v-if="!authUser">
+          <router-link class="nav-link" to="/login">
+            Login
+          </router-link>
+          <router-link class="nav-link" to="/signup">
+            SignUp
+          </router-link>
+      </b-navbar-nav>
 
+      <b-collapse is-nav id="nav_collapse" v-if="authUser">
         <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown right>
+        <b-navbar-nav class="ml-auto" >
+          <b-nav-item-dropdown right >
             <!-- Using button-content slot -->
             <template slot="button-content">
-              <em>Hey, Nishan</em>
+              <em>Hey, {{ authUser }}</em>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <b-dropdown-item href="#">Signout</b-dropdown-item>
@@ -25,3 +32,17 @@
     </div>
   </b-navbar>
 </template>
+
+<script>
+export default {
+  mounted() {
+
+  },
+  computed: {
+    authUser(){
+      return this.$root.auth.username;
+    }
+  }
+}
+</script>
+
